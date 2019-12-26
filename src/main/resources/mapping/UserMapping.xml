@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bb.bb.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.bb.bb.entity.User">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="varchar" property="username"/>
+        <result column="password" jdbcType="varchar" property="password"/>
+        <result column="nickname" jdbcType="varchar" property="nickname"/>
+        <result column="create_time" jdbcType="varchar" property="create_time"/>
+        <result column="update_time" jdbcType="varchar" property="update_time"/>
+    </resultMap>
+
+    <select id="find" resultType="com.bb.bb.entity.User">
+        select * from s_user where id = #{id}
+    </select>
+
+</mapper>
