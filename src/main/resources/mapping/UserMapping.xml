@@ -4,15 +4,21 @@
 
     <resultMap id="BaseResultMap" type="com.bb.bb.entity.User">
         <result column="id" jdbcType="INTEGER" property="id"/>
-        <result column="username" jdbcType="varchar" property="username"/>
-        <result column="password" jdbcType="varchar" property="password"/>
-        <result column="nickname" jdbcType="varchar" property="nickname"/>
-        <result column="create_time" jdbcType="varchar" property="create_time"/>
-        <result column="update_time" jdbcType="varchar" property="update_time"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="create_time" jdbcType="VARCHAR" property="create_time"/>
+        <result column="update_time" jdbcType="VARCHAR" property="update_time"/>
     </resultMap>
 
     <select id="find" resultType="com.bb.bb.entity.User">
         select * from s_user where id = #{id}
     </select>
 
+    <insert id="create">
+        insert into s_user (username,password,nickname,create_time,update_time)
+        values (
+                        #{username},#{password},#{nickname},now(),now()
+        )
+    </insert>
 </mapper>

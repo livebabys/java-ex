@@ -5,6 +5,7 @@ import com.bb.bb.entity.User;
 import com.bb.bb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -21,5 +22,9 @@ public class HelloController {
         User userinfo = userService.find(id);
         System.out.println(userinfo);
         return  "hello spring boot";
+    }
+    @PostMapping(value="/register")
+    public String register(){
+        return "success";
     }
 }

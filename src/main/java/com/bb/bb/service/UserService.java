@@ -14,4 +14,7 @@ public class UserService {
       return  userMapper.find(id);
     }
 
+    public int create(String username,String password,String nickname){
+        return userMapper.create(username,password,nickname);
+    }
 }
