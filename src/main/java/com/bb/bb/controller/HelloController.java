@@ -1,4 +1,4 @@
-package com.bb.bb;
+package com.bb.bb.controller;
 
 
 import com.bb.bb.entity.User;
