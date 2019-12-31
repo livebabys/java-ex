@@ -4,7 +4,17 @@ public class User {
     private int id;
     private String username;
     private String nickname;
+    private String password;
     private String create_time;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     private String update_time;
 
     public String getUsername() {

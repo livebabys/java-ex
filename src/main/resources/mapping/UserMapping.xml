@@ -16,9 +16,24 @@
     </select>
 
     <insert id="create">
-        insert into s_user (username,password,nickname,create_time,update_time)
-        values (
-                        #{username},#{password},#{nickname},now(),now()
-        )
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into s_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">username,</if>
+            <if test="password != null">password,</if>
+            <if test="nickname != null">nickname,</if>
+            create_time,
+            update_time,
+        </trim>
+        <trim prefix="values ( " suffix=" )" suffixOverrides=",">
+            <if test="username != null">#{username},</if>
+            <if test="password != null">#{password},</if>
+            <if test="nickname != null">#{nickname},</if>
+            now(),
+            now(),
+        </trim>
+
     </insert>
 </mapper>

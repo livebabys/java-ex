@@ -24,7 +24,13 @@ public class HelloController {
         return  "hello spring boot";
     }
     @PostMapping(value="/register")
-    public String register(){
-        return "success";
+    public int register(){
+        User user = new User();
+        user.setUsername("sunzheng");
+        user.setNickname("321123");
+        user.setPassword("123123");
+        userService.create(user);
+
+        return user.getId();
     }
 }
