@@ -18,7 +18,7 @@ public class HelloController {
 
 
     @GetMapping(value = "/hello")
-    public Result<User> userinfo(@RequestParam("id") int id){
+    public Result userinfo(@RequestParam("id") int id){
 
         User user = new User();
         user.setId(id);
@@ -26,7 +26,7 @@ public class HelloController {
         User userinfo = userService.find(user);
         System.out.println(userinfo);
 
-        return Result<>(0 , "success", user);
+        return new Result<>(0,"success",userinfo);
         //return  user;
     }
     @PostMapping(value="/register")
