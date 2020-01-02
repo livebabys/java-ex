@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserMapper {
-    User find(int id);
+
+    User find(User user);
     int create(User user);
+    void update(User user);
 }

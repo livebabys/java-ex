@@ -6,6 +6,15 @@ public class User {
     private String nickname;
     private String password;
     private String create_time;
+    private int isDeleted;
+
+    public int getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 
     public String getPassword() {
         return password;

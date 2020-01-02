@@ -12,8 +12,12 @@
     </resultMap>
 
     <select id="find" resultType="com.bb.bb.entity.User">
-        select * from s_user where id = #{id}
+        select * from s_user where 1 = 1
+         <if test="id != ''">and id = #{id} </if>
+         <if test="username != null">and username = #{username} </if>
+         limit 1;
     </select>
+
 
     <insert id="create">
         <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
@@ -34,6 +38,18 @@
             now(),
             now(),
         </trim>
-
     </insert>
+
+    <update id="update">
+        update s_user
+            <set>
+                <if test="username != null"> username = #{username},</if>
+                <if test="password != null"> password = #{password},</if>
+                <if test="nickname != null"> nickname = #{nickname},</if>
+                <if test="isDeleted != null"> is_deleted = #{isDeleted},</if>
+                update_time=now()
+            </set>
+
+            where id= #{id}
+    </update>
 </mapper>
