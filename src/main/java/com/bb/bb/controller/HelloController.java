@@ -1,6 +1,7 @@
 package com.bb.bb.controller;
 
 
+import com.bb.bb.common.Result;
 import com.bb.bb.entity.User;
 import com.bb.bb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,19 @@ public class HelloController {
     @Autowired
     private UserService userService;
 
+
+
     @GetMapping(value = "/hello")
-    public String hello(@RequestParam("id") int id){
-        //System.out.println(id);
+    public Result<User> userinfo(@RequestParam("id") int id){
+
         User user = new User();
         user.setId(id);
 
         User userinfo = userService.find(user);
         System.out.println(userinfo);
-        return  "hello spring boot";
+
+        return Result<>(0 , "success", user);
+        //return  user;
     }
     @PostMapping(value="/register")
     public int register(@RequestParam("username") String username,
