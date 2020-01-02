@@ -20,6 +20,9 @@ public class HelloController {
     @GetMapping(value = "/hello")
     public Result userinfo(@RequestParam("id") int id){
 
+        if(id <= 0 ){
+            return new Result(999,"用户id不正确");
+        }
         User user = new User();
         user.setId(id);
 
