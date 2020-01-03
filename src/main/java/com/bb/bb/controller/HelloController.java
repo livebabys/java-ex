@@ -33,7 +33,7 @@ public class HelloController {
         //return  user;
     }
     @PostMapping(value="/register")
-    public int register(@RequestParam("username") String username,
+    public Result register(@RequestParam("username") String username,
                         @RequestParam("nickname") String nickname,
                         @RequestParam("password") String password){
 
@@ -42,23 +42,24 @@ public class HelloController {
 
         User userObj = userService.find(user);
         if(userObj != null){
-            return 0;
+            return new Result(999,"用户名已经存在");
         }
 
         user.setNickname(nickname);
         user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
         userService.create(user);
 
-        return user.getId();
+        return new Result(0,"success");
     }
 
     @PostMapping(value="/modify_user_info")
-    public void modifyUserInfo(User user){
+    public Result modifyUserInfo(User user){
 
 //        User user = new User();
 //        user.setId(1);
 //        user.setNickname("test_nick_name");
 
         userService.update(user);
+        return new Result(0,"success");
     }
 }
