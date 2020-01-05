@@ -17,7 +17,7 @@ public class HelloController {
 
 
 
-    @GetMapping(value = "/hello")
+    @GetMapping(value = "/api/auth/hello")
     public Result userinfo(@RequestParam("id") int id){
 
         if(id <= 0 ){
