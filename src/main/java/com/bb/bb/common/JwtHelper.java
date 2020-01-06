@@ -51,6 +51,7 @@ public class JwtHelper {
                                     .setSigningKey(SECRET)
                                     .parseClaimsJws(token.replace(TOKEN_PERFIX,""))
                                     .getBody();
+        System.out.println("result body :"+body);
         return body;
     }
 }

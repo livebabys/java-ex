@@ -2,6 +2,7 @@ package com.bb.bb.config;
 
 
 import com.bb.bb.common.JwtHelper;
+import com.bb.bb.common.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.AntPathMatcher;
 
@@ -47,26 +48,32 @@ public class JwtFilter implements Filter {
         }
 
         String spath = httpRequest.getServletPath();
-
-        for(String url:urls){
-            if(pathMatcher.match(url,spath)){
-                Object token = jwtHelper.validateTokenAndGetClaims(httpRequest);
-                HttpSession session = httpRequest.getSession();
-                session.setAttribute("loginName",((Map) token).get("loginName"));
-                if(token != null){
+        try{
+            for(String url:urls){
+                if(pathMatcher.match(url,spath)){
+                    Object token = jwtHelper.validateTokenAndGetClaims(httpRequest);
+                    HttpSession session = httpRequest.getSession();
+                    session.setAttribute("loginName",((Map) token).get("loginName"));
+                    if(token != null){
+                        chain.doFilter(request,response);
+                        return;
+                    }else{
+                        httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,"未授权或者授权已经过期");
+                        return;
+                    }
+                }else{
                     chain.doFilter(request,response);
                     return;
-                }else{
-                    httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,"未授权或者授权已经过期");
-                    return;
                 }
-            }else{
-                chain.doFilter(request,response);
-                return;
             }
+            chain.doFilter(request,response);
+            return;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            httpResponse.getWriter().println(new Result<>(101, "登录状态不正确"));
         }
-        chain.doFilter(request,response);
-        return;
+
+
     }
 
     @Override
