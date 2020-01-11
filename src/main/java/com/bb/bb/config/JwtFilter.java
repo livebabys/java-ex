@@ -53,7 +53,9 @@ public class JwtFilter implements Filter {
                 if(pathMatcher.match(url,spath)){
                     Object token = jwtHelper.validateTokenAndGetClaims(httpRequest);
                     HttpSession session = httpRequest.getSession();
-                    session.setAttribute("loginName",((Map) token).get("loginName"));
+
+                    session.setAttribute("username",((Map) token).get("username"));
+                    session.setAttribute("uid",((Map) token).get("uid"));
                     if(token != null){
                         chain.doFilter(request,response);
                         return;
