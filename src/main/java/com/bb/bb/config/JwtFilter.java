@@ -3,6 +3,7 @@ package com.bb.bb.config;
 
 import com.bb.bb.common.JwtHelper;
 import com.bb.bb.common.Result;
+import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.AntPathMatcher;
 
@@ -26,6 +27,7 @@ public class JwtFilter implements Filter {
     public JwtFilter(JwtHelper jwtHelper,String[] authorisedUrls ){
         this.jwtHelper = jwtHelper;
         urls = Arrays.asList(authorisedUrls);
+        System.out.println("urls:  "+urls);
     }
 
     @Override
@@ -50,6 +52,8 @@ public class JwtFilter implements Filter {
         String spath = httpRequest.getServletPath();
         try{
             for(String url:urls){
+                System.out.println("url:"+url);
+                System.out.println("path:"+spath);
                 if(pathMatcher.match(url,spath)){
                     Object token = jwtHelper.validateTokenAndGetClaims(httpRequest);
                     HttpSession session = httpRequest.getSession();
@@ -70,9 +74,12 @@ public class JwtFilter implements Filter {
             }
             chain.doFilter(request,response);
             return;
-        }catch(Exception e){
+        }catch(NullPointerException e){
             System.out.println(e.getMessage());
-            httpResponse.getWriter().println(new Result<>(101, "登录状态不正确"));
+            httpResponse.getWriter().println(new Result<>(101, "token不能为空"));
+        }catch (MalformedJwtException e){
+            System.out.println(e.getMessage());
+            httpResponse.getWriter().println(new Result<>(101, "token不正确"));
         }
 
 

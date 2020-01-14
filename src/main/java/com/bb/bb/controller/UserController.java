@@ -73,7 +73,7 @@ public class UserController {
         return new Result(0,"success");
     }
 
-    @PostMapping(value="/modify_user_info")
+    @PostMapping(value="/api/auth/modify_user_info")
     public Result modifyUserInfo(User user){
 
 //        User user = new User();
