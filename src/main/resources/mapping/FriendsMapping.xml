@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bb.bb.mapper.FriendsMapper">
+
+    <resultMap id="BaseResultMap" type="com.bb.bb.entity.Friends">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="source_id" jdbcType="INTEGER" property="sourceId"/>
+        <result column="target_id" jdbcType="INTEGER" property="targetId"/>
+        <result column="is_deleted" jdbcType="INTEGER" property="isDeleted"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+    </resultMap>
+
+    <select id="list" resultType="com.bb.bb.entity.Friends">
+        select * from s_friends where 1 = 1
+        <if test="id != ''"> and id = #{id}</if>
+        <if test="sourceId != ''"> and source_id = #{sourceId}</if>
+        <if test="targetId != ''"> and target_id = #{targetId}</if>
+        <if test="isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+        <if test="status != ''"> and status = #{status}</if>
+    </select>
+
+</mapper>
