@@ -21,4 +21,26 @@
         <if test="status != ''"> and status = #{status}</if>
     </select>
 
+    <insert id="create">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into s_friends
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sourceId != ''">source_id, </if>
+            <if test="targetId != ''">target_id, </if>
+            <if test="isDeleted != ''">is_deleted, </if>
+            <if test="status != ''">status, </if>
+            <if test="createTime != null">create_time, </if>
+            <if test="updateTime != null">update_time, </if>
+        </trim>
+        <trim prefix="values(" suffix=" )" suffixOverrides=",">
+            <if test="sourceId != ''">#{sourceId} </if>
+            <if test="targetId != ''">#{targetId} </if>
+            <if test="isDeleted != ''">#{isDeleted} </if>
+            <if test="status != ''">#{status} </if>
+            <if test="createTime != ''">#{createTime} </if>
+            <if test="updateTime != ''">#{updateTime} </if>
+        </trim>
+    </insert>
 </mapper>

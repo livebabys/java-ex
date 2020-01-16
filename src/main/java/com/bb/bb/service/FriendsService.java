@@ -14,4 +14,8 @@ public class FriendsService {
        return friendsMapper.list(friends);
     }
 
+    public int create(Friends friends){
+        return friendsMapper.create(friends);
+    }
+
 }
